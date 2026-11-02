@@ -6,7 +6,9 @@ FROM caddy:${CADDY_VERSION}-builder AS builder
 RUN xcaddy build --with github.com/caddy-dns/cloudflare
 
 FROM alpine:latest
+ARG CADDY_VERSION
 LABEL org.opencontainers.image.source="https://github.com/era-cloud/caddy"
+LABEL org.opencontainers.image.version="${CADDY_VERSION}"
 RUN apk add --no-cache ca-certificates tzdata
 ENV XDG_CONFIG_HOME=/config XDG_DATA_HOME=/data
 RUN mkdir -p /config /data
