@@ -77,6 +77,9 @@ jobs:
       - name: Record base version
         if: steps.chk.outputs.changed == 'true'
         run: |
+          if [ "$(cat BASE_VERSION 2>/dev/null)" = "${{ steps.ver.outputs.version }}" ]; then
+            echo "BASE_VERSION 未变（手动重建），跳过提交"; exit 0
+          fi
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           echo "${{ steps.ver.outputs.version }}" > BASE_VERSION
