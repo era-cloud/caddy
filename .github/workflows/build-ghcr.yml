@@ -49,7 +49,7 @@ jobs:
           prev=$(cat BASE_VERSION 2>/dev/null || echo "")
           now="${{ steps.ver.outputs.version }}"
           echo "prev=[$prev] now=[$now]"
-          if [ "$now" = "$prev" ] && [ -n "$now" ] && [ "${{ github.event_name }}" != "push" ]; then
+          if [ "$now" = "$prev" ] && [ -n "$now" ] && [ "${{ github.event_name }}" != "push" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
